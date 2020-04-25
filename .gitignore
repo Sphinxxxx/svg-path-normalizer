@@ -1,0 +1,12 @@
+node_modules
+dist
+
+npm-debug.log
+# "Lockfiles for apps, but not for packages"
+# https://github.com/sindresorhus/ama/issues/479#issuecomment-310661514
+package-lock.json
+
+# Environment variables
+.env
+# macOS system files
+.DS_Store

@@ -1,0 +1,16 @@
+//For gulpfile.babel.js
+//https://github.com/gulpjs/gulp#use-latest-javascript-version-in-your-gulpfile
+//
+//Limiting the target to Node allows us to use async/await in gulpfile.babel.ls
+//without getting a "ReferenceError: regeneratorRuntime is not defined" error:
+//https://github.com/babel/babel/issues/9849#issuecomment-487040428
+//
+{
+    "presets": [
+        ["@babel/env", {
+            "targets": {
+                "node": "8"
+            }
+        }]
+    ]
+}

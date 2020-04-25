@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>svg-path-normalizer</title>
+        <link rel="shortcut icon" href="data:image/svg+xml,%3csvg stroke='black' fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0,0 10,10' width='200' height='200'%3e%3cpath d='M1,6 q2,-5 2,0 t6,-4'/%3e%3c/svg%3e">
+        <script src="../dist/svg-path-normalizer.min.js"></script>
+    </head>
+    <body>
+        <pre id="tests"></pre>
+        <script>
+            var output = document.querySelector('#tests'),
+                tests = {
+                    '  M12.3.4.5.6z ':      'M 12.3 .4 .5 .6 z',
+                    'M2.-3-.4 .5z':         'M 2. -3 -.4 .5 z',
+                    'M2.-3-.4-5z':          'M 2. -3 -.4 -5 z',
+                    'M.3.4.5.6 z':          'M .3 .4 .5 .6 z',
+                    'M   1.2e3    -9.8e-7': 'M 1.2e3 -9.8e-7',
+                    'M 23.45e67 -98.76e-54':'M 23.45e67 -98.76e-54',
+                    'a60,60 0 1,1 99,11':   'a 60 60 0 1 1 99 11',
+                    'a60,60 0 11 99,11':    'a 60 60 0 1 1 99 11',
+                    'a60,60 0 1 199,11':    'a 60 60 0 1 1 99 11',
+                    'a60,60 0 1199,11':     'a 60 60 0 1 1 99 11',
+                    'a60,60 0 1 1.99, 11':  'a 60 60 0 1 1 .99 11',
+                    'a60,60 0 11.99, 11':   'a 60 60 0 1 1 .99 11',
+                    'a60,60 0 1199,11a60,60 0 11.99, 11': 'a 60 60 0 1 1 99 11 a 60 60 0 1 1 .99 11',
+                };
+            Object.keys(tests).forEach(test => {
+                const expected = tests[test],
+                    result = svgPathNormalizer(test);
+                let out;
+                if(result === expected) {
+                    output.textContent += `    ${test}\n => ${result}\n\n`;
+                }
+                else {
+                    const err = `Parsing error: ${test} => ${result}`;
+                    output.textContent += `    ${test}\n*** ${err} ***`;
+                    throw new Error(err);
+                }
+            });
+            output.textContent += `\nSUCCESS!`;
+        </script>
+    </body>
+</html>

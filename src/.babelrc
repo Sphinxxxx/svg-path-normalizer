@@ -1,0 +1,13 @@
+{
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "modules": false,
+                "loose": true
+            }
+        ]
+    ],
+    "comments": false,
+    "exclude": "node_modules/**"
+}

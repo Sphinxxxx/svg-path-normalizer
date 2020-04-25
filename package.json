@@ -1,0 +1,37 @@
+{
+  "name": "svg-path-normalizer",
+  "version": "0.1.0",
+  "author": "Andreas Borgen",
+  "description": "Given a valid SVG path, splits that path into its commands and parameters.",
+  "license": "ISC",
+  "keywords": [
+    "svg",
+    "path",
+    "normalizer",
+    "parser"
+  ],
+  "main": "dist/svg-path-normalizer.js",
+  "module": "dist/svg-path-normalizer.mjs",
+  "unpkg": "dist/svg-path-normalizer.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sphinxxxx/svg-path-normalizer.git"
+  },
+  "files": [
+    "src/",
+    "dist/"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/register": "^7.9.0",
+    "gulp": "^4.0.2",
+    "rollup": "^2.7.2",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-uglify": "^6.0.4"
+  },
+  "browserslist": ">.1%, last 2 versions, Firefox ESR, not dead"
+}
