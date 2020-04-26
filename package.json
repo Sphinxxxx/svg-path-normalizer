@@ -22,13 +22,19 @@
     "dist/"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "//": "https://stackoverflow.com/a/59048590/1869660",
+    "test": "mocha --require @babel/register",
+    "//": "https://stackoverflow.com/a/44971351/1869660",
+    "//": "https://github.com/istanbuljs/nyc#installation--usage",
+    "cover": "nyc --reporter=html  npm test"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/register": "^7.9.0",
     "gulp": "^4.0.2",
+    "mocha": "^7.1.1",
+    "nyc": "^15.0.1",
     "rollup": "^2.7.2",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-uglify": "^6.0.4"

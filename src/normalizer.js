@@ -4,7 +4,7 @@ import Stream from "./string-stream";
 
 class Segment {
     constructor(command) {
-        this.command = command;
+        this.command = command || '';
         this.params = [];
     }
 
@@ -76,9 +76,10 @@ function normalize(path, returnArray) {
     pushSegment();
 
 
-    const result = returnArray
-        ? norm
-        : norm.map(x => `${x.command || ''} ${x.params.join(' ')}`.trim()).join(' ');
+    const array = norm.map(x => [x.command, x.params]),
+        result = returnArray
+        ? array
+        : ('' + array).replace(/,/g, ' ').trim();
     return result;
 }
 

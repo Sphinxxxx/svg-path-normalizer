@@ -1,6 +1,10 @@
 node_modules
 dist
 
+# nyc/istanbul test coverage
+coverage
+.nyc_output
+
 npm-debug.log
 # "Lockfiles for apps, but not for packages"
 # https://github.com/sindresorhus/ama/issues/479#issuecomment-310661514
