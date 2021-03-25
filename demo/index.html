@@ -25,7 +25,7 @@
                 };
             Object.keys(tests).forEach(test => {
                 const expected = tests[test],
-                    result = svgPathNormalizer(test);
+                    result = svgPathNormalizer(test).data;
                 let out;
                 if(result === expected) {
                     output.textContent += `    ${test}\n => ${result}\n\n`;

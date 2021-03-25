@@ -91,7 +91,15 @@ class NumberBuffer {
         return false;
     }
 
-    /*
+    isValid() {
+        //A number can't begin with the `e` operator,
+        //and all valid numbers end with a digit(?)
+        //Other invalid variants won't make it through our state machine:
+        const num = this.consumed;
+        return (num.length && (/^[^eE]/).test(num) && (/\d$/).test(num));
+    }
+
+    /* Not needed in this project, nor treeshaked by rollup..
     reset() {
         this.state = NUMSTATE_INIT;
         this.consumed = '';
@@ -115,7 +123,7 @@ class NumberBuffer {
                 break;
             }
         }
-        return buffer.consumed;
+        return buffer.consumed ? buffer : null;
     }
 }
 

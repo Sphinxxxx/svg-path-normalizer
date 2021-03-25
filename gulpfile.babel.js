@@ -3,7 +3,7 @@ import * as pkg from './package.json';
 import gulp from 'gulp';
 import { rollup } from 'rollup';
 import babel from 'rollup-plugin-babel';
-import { uglify } from "rollup-plugin-uglify";
+import { terser } from "rollup-plugin-terser";
 
 
 const inFile = './index.js',
@@ -34,7 +34,7 @@ export async function bundle() {
         format: 'umd',
         name: globalName,
         plugins: [
-            uglify({
+            terser({
                 compress: {
                     passes: 2,
                 },
@@ -42,7 +42,7 @@ export async function bundle() {
                     //Mangle the properties on our internal classes..
                     properties: {
                         //..but don't mangle the UMD wrapper:
-                        reserved: [/*module.*/'exports', /*define.*/'amd', globalName],
+                        reserved: [/*module.*/'exports', /*define.*/'amd', globalName, 'data', 'warnings'],
                     },
                 }
             }),

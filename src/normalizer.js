@@ -34,7 +34,8 @@ class Segment {
 
 function normalize(path, returnArray) {
     const pathStream = new Stream(path),
-        norm = [];
+        norm = [],
+        warn = [];
     let segment = new Segment();
 
     function isCommand(ch) {
@@ -51,35 +52,36 @@ function normalize(path, returnArray) {
         }
     }
 
-    let ch, num;
-    while (ch = pathStream.peek()) {
+    let i, ch, num;
+    while (i = pathStream.position, ch = pathStream.peek()) {
         if (isCommand(ch)) {
             pushSegment();
             segment = new Segment(ch);
             pathStream.skip();
         }
-        else if (num = NumBuf.readFrom(pathStream)) {
+        else if (segment.expectArcFlag() && (/[01]/).test(ch)) {
             //Special handling of arc flags (see comment in `expectArcFlag()`):
-            while (segment.expectArcFlag() && (/[01]/).test(num[0])) {
-                segment.addParam(num[0]);
-                num = num.substring(1);
-            }
-            if (num) {
-                segment.addParam(num);
+            segment.addParam(ch);
+            pathStream.skip();
+        }
+        else if (num = NumBuf.readFrom(pathStream)) {
+            segment.addParam(num.consumed);
+            if(!num.isValid()) {
+                warn.push(`Invalid number at ${i}: "${num.consumed}"`);
             }
         }
         else {
-            //Presumably a comma or whitespace. Ignore.
+            //Presumably a comma or whitespace. Ignore:
             pathStream.skip();
         }
     }
     pushSegment();
 
-
     const array = norm.map(x => [x.command, x.params]),
-        result = returnArray
-        ? array
-        : ('' + array).replace(/,/g, ' ').trim();
+        result = {
+            data: returnArray ? array : ('' + array).replace(/,/g, ' ').trim(),
+            warnings: warn,
+        };
     return result;
 }
 
